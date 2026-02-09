@@ -1743,14 +1743,6 @@
 
       <div class="container hero-grid">
         <div class="scroll-animate">
-          <div class="brand">
-            <div class="brand-mark" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 3c2.2 0 4 1.5 4 3.5S14.2 10 12 10 8 8.5 8 6.5 9.8 3 12 3zm0 8.5c3.2 0 5.8 2.3 6 5.2l-2.3-.7c-.7-.2-1.4.3-1.5 1l-.4 2.5h-3.6l-.4-2.5c-.1-.7-.8-1.2-1.5-1l-2.3.7c.2-2.9 2.8-5.2 6-5.2z" />
-              </svg>
-            </div>
-            rapido
-          </div>
           <h1>Bike Ride<br />Sharing Services</h1>
           <p>Join Rapido and earn up to ₹30,000 / month as a partner captain. Flexible hours, instant payouts, and a supportive community.</p>
           <div class="hero-badges">
@@ -1863,22 +1855,22 @@
           <p>Our partners are the backbone of our success. Join a community built on safety, trust, and steady earnings.</p>
           <div class="impact-stats stagger-children">
             <div class="stat" style="--index: 0">
-              <div class="bubble"><span class="counter" data-target="25">0</span>M+</div>
+              <div class="bubble"><span class="counter" data-target="25">12</span>M+</div>
               <h4>Downloads</h4>
               <span>Across cities</span>
             </div>
             <div class="stat" style="--index: 1">
-              <div class="bubble"><span class="counter" data-target="100">0</span>+</div>
+              <div class="bubble"><span class="counter" data-target="100">87</span>+</div>
               <h4>Cities</h4>
               <span>And growing</span>
             </div>
             <div class="stat" style="--index: 2">
-              <div class="bubble"><span class="counter" data-target="1">0</span>M+</div>
+              <div class="bubble"><span class="counter" data-target="1000">500</span>K+</div>
               <h4>Captains</h4>
               <span>Partner network</span>
             </div>
             <div class="stat" style="--index: 3">
-              <div class="bubble"><span class="counter" data-target="10">0</span>M+</div>
+              <div class="bubble"><span class="counter" data-target="10000">4567</span>K+</div>
               <h4>Customers</h4>
               <span>Regular riders</span>
             </div>
@@ -2219,9 +2211,10 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animated');
-            // Counter animation
-            if (entry.target.classList.contains('counter')) {
-              animateCounter(entry.target);
+            // Counter animation - find counter inside the observed element
+            const counter = entry.target.querySelector('.counter');
+            if (counter) {
+              animateCounter(counter);
             }
           }
         });
@@ -2241,12 +2234,27 @@
 
       function animateCounter(el) {
         const target = parseInt(el.dataset.target);
-        const duration = 2000;
-        const start = performance.now();
-        const startValue = 0;
+        const startValue = parseInt(el.textContent) || 0;
+        const difference = target - startValue;
+
+        // Dynamic duration based on the number difference
+        // Smaller numbers need slower animation per increment
+        // Larger numbers get more time for the full animation
+        let duration;
+        if (difference < 50) {
+          duration = 5000; // 5 seconds for small changes
+        } else if (difference < 500) {
+          duration = 6000; // 6 seconds for medium changes
+        } else if (difference < 5000) {
+          duration = 7000; // 7 seconds for large changes
+        } else {
+          duration = 8000; // 8 seconds for very large changes
+        }
+
+        const startTime = performance.now();
 
         function update(currentTime) {
-          const elapsed = currentTime - start;
+          const elapsed = currentTime - startTime;
           const progress = Math.min(elapsed / duration, 1);
           const easeProgress = 1 - Math.pow(1 - progress, 3);
           const current = Math.floor(startValue + (target - startValue) * easeProgress);
