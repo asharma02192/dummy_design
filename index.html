@@ -1358,36 +1358,6 @@
       box-shadow: var(--shadow-md);
     }
 
-    .photo-stack {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      align-items: center;
-    }
-
-    .diamond {
-      width: 110px;
-      height: 110px;
-      border-radius: 16px;
-      transform: rotate(45deg);
-      overflow: hidden;
-      border: 6px solid #fff;
-      box-shadow: var(--shadow);
-      transition: all var(--transition-normal);
-    }
-
-    .diamond:hover {
-      transform: rotate(45deg) scale(1.1);
-      z-index: 2;
-      box-shadow: var(--shadow-xl);
-    }
-
-    .diamond img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: rotate(-45deg) scale(1.2);
-    }
 
     /* Footer */
     footer {
@@ -1631,16 +1601,6 @@
 
       .benefit-grid {
         grid-template-columns: 1fr;
-      }
-
-      .photo-stack {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .diamond {
-        width: 90px;
-        height: 90px;
-        margin: 0 auto;
       }
 
       .footer-grid {
@@ -2079,17 +2039,6 @@
           <p>Our corporate partners enjoy priority booking, dedicated fleet management, and detailed analytics for their transportation needs.</p>
           <a href="#" class="business-btn">Learn More</a>
         </div>
-        <div class="photo-stack scroll-animate-right" aria-hidden="true">
-          <div class="diamond">
-            <img src="https://images.unsplash.com/photo-1518307721070-1e8c38b5be8b?auto=format&fit=crop&w=400&q=80" alt="">
-          </div>
-          <div class="diamond">
-            <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=400&q=80" alt="">
-          </div>
-          <div class="diamond">
-            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=400&q=80" alt="">
-          </div>
-        </div>
       </div>
     </section>
 
@@ -2459,7 +2408,7 @@
       // Parallax effect on scroll
       window.addEventListener('scroll', debounce(function() {
         const scrolled = window.pageYOffset;
-        const parallaxElements = document.querySelectorAll('.hero-visual, .impact-illustration, .photo-stack');
+        const parallaxElements = document.querySelectorAll('.hero-visual, .impact-illustration');
 
         parallaxElements.forEach(el => {
           const speed = 0.15;
