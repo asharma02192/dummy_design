@@ -1,0 +1,2449 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rapido Partner Landing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Original Colors */
+      --blue-900: #143a6b;
+      --blue-800: #1c4f8e;
+      --blue-700: #2a65b6;
+      --yellow-500: #f6c845;
+      --yellow-400: #ffd55d;
+      --yellow-300: #ffe58c;
+      --cream: #fff6d9;
+      --text-dark: #1a2a44;
+      --text-mid: #3b4d6a;
+      --white: #ffffff;
+      --shadow: 0 20px 40px rgba(10, 20, 40, 0.18);
+
+      /* Enhanced Colors */
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --glass-blur: blur(20px);
+      --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-blue: linear-gradient(135deg, #1c4f8e 0%, #2a65b6 50%, #3a7dd6 100%);
+      --gradient-yellow: linear-gradient(135deg, #ffd55d 0%, #f6c845 50%, #f1b835 100%);
+      --gradient-mesh: radial-gradient(at 40% 20%, rgba(255, 213, 93, 0.3) 0px, transparent 50%),
+                      radial-gradient(at 80% 0%, rgba(255, 255, 255, 0.15) 0px, transparent 50%),
+                      radial-gradient(at 0% 50%, rgba(42, 101, 182, 0.2) 0px, transparent 50%),
+                      radial-gradient(at 80% 50%, rgba(255, 229, 140, 0.25) 0px, transparent 50%),
+                      radial-gradient(at 0% 100%, rgba(255, 213, 93, 0.2) 0px, transparent 50%);
+
+      /* Animation Easing */
+      --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+      --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+      /* Shadows */
+      --shadow-sm: 0 4px 12px rgba(10, 20, 40, 0.08);
+      --shadow-md: 0 12px 28px rgba(10, 20, 40, 0.12);
+      --shadow-lg: 0 20px 40px rgba(10, 20, 40, 0.18);
+      --shadow-xl: 0 32px 60px rgba(10, 20, 40, 0.25);
+      --shadow-glow: 0 0 40px rgba(255, 213, 93, 0.3);
+      --shadow-glow-blue: 0 0 40px rgba(42, 101, 182, 0.3);
+
+      /* Transitions */
+      --transition-fast: 0.2s var(--ease-out);
+      --transition-normal: 0.3s var(--ease-out);
+      --transition-slow: 0.5s var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", "Segoe UI", Tahoma, sans-serif;
+      color: var(--text-dark);
+      background: #f7f8fb;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* Custom Cursor */
+    .custom-cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--yellow-500);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transition: transform 0.15s ease, background 0.15s ease;
+      mix-blend-mode: difference;
+    }
+
+    .custom-cursor.hover {
+      transform: scale(1.5);
+      background: rgba(246, 200, 69, 0.3);
+    }
+
+    .cursor-trail {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--yellow-400);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
+
+    /* Loading Animation */
+    .page-loader {
+      position: fixed;
+      inset: 0;
+      background: var(--blue-900);
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .page-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-content {
+      text-align: center;
+    }
+
+    .loader-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 24px;
+      background: var(--yellow-500);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 20px;
+      animation: pulse-scale 1.5s ease-in-out infinite;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .loader-logo svg {
+      width: 50px;
+      height: 50px;
+      fill: var(--blue-900);
+    }
+
+    .loader-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .loader-progress {
+      height: 100%;
+      background: var(--yellow-500);
+      border-radius: 2px;
+      animation: loading 1.5s ease-in-out infinite;
+    }
+
+    @keyframes loading {
+      0% { width: 0; }
+      50% { width: 70%; }
+      100% { width: 100%; }
+    }
+
+    @keyframes pulse-scale {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .page {
+      width: 100%;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .page.loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .container {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+    }
+
+    /* Floating Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 16px 0;
+      transition: all 0.4s var(--ease-out);
+      background: transparent;
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: var(--glass-blur);
+      box-shadow: var(--shadow-sm);
+      padding: 12px 0;
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--white);
+      transition: color var(--transition-normal);
+    }
+
+    .navbar.scrolled .nav-brand {
+      color: var(--blue-900);
+    }
+
+    .nav-brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: var(--yellow-500);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      transition: transform var(--transition-normal);
+    }
+
+    .nav-brand-mark:hover {
+      transform: rotate(10deg) scale(1.1);
+    }
+
+    .nav-brand-mark svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--blue-900);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      position: relative;
+      padding: 8px 0;
+      transition: color var(--transition-normal);
+    }
+
+    .navbar.scrolled .nav-link {
+      color: var(--text-mid);
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--yellow-500);
+      transition: all var(--transition-normal);
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-link:hover {
+      color: var(--yellow-400);
+    }
+
+    .navbar.scrolled .nav-link:hover {
+      color: var(--blue-700);
+    }
+
+    .nav-cta {
+      padding: 10px 24px;
+      background: var(--yellow-500);
+      color: var(--blue-900);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all var(--transition-normal);
+      box-shadow: 0 4px 12px rgba(246, 200, 69, 0.4);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(246, 200, 69, 0.5);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .mobile-menu-btn span {
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled .mobile-menu-btn span {
+      background: var(--blue-900);
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 140px 0 120px;
+      background: linear-gradient(120deg, var(--blue-900) 0%, var(--blue-800) 45%, #1a4787 100%);
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    /* Animated Gradient Background */
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-mesh);
+      animation: gradient-shift 15s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Floating Blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.5;
+      animation: float 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .blob-1 {
+      width: 400px;
+      height: 400px;
+      background: var(--yellow-400);
+      top: -100px;
+      left: -100px;
+      animation-delay: 0s;
+    }
+
+    .blob-2 {
+      width: 300px;
+      height: 300px;
+      background: var(--blue-700);
+      bottom: -50px;
+      right: -50px;
+      animation-delay: -5s;
+    }
+
+    .blob-3 {
+      width: 250px;
+      height: 250px;
+      background: var(--yellow-300);
+      top: 50%;
+      right: 20%;
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(30px, -30px) scale(1.1); }
+      50% { transform: translate(-20px, 20px) scale(0.9); }
+      75% { transform: translate(20px, 30px) scale(1.05); }
+    }
+
+    /* Particle Canvas */
+    .particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 96px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 229, 140, 0.55) 40%, var(--cream) 100%);
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      background: var(--yellow-500);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .brand-mark svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--blue-900);
+    }
+
+    .hero h1 {
+      margin-top: 28px;
+      font-size: clamp(32px, 4vw, 46px);
+      line-height: 1.1;
+      letter-spacing: 1px;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 0%, var(--yellow-300) 50%, #ffffff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .hero p {
+      margin-top: 14px;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 360px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      transition: all var(--transition-normal);
+    }
+
+    .badge:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .badge svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--yellow-400);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 420px;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 229, 140, 0.6), rgba(255, 213, 93, 0.12));
+      top: -12px;
+      left: -30px;
+      filter: blur(1px);
+      z-index: 0;
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: 26px;
+      box-shadow: var(--shadow-xl);
+      border: 6px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      z-index: 1;
+      transition: transform var(--transition-slow);
+    }
+
+    .hero-visual:hover .hero-photo {
+      transform: scale(1.02);
+    }
+
+    .hero-card {
+      position: absolute;
+      right: -16px;
+      top: 24px;
+      width: min(280px, 90vw);
+      background: linear-gradient(140deg, #ffd869 0%, var(--yellow-500) 55%, #f1b835 100%);
+      border-radius: 18px;
+      padding: 18px;
+      color: var(--text-dark);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: var(--shadow-xl);
+      z-index: 2;
+      backdrop-filter: blur(10px);
+      transition: all var(--transition-normal);
+    }
+
+    .hero-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .hero-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .hero-card input,
+    .hero-card button {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      transition: all var(--transition-fast);
+    }
+
+    .hero-card input {
+      background: #fffdf3;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .hero-card input:focus {
+      outline: none;
+      border-color: var(--blue-700);
+      box-shadow: 0 0 0 3px rgba(42, 101, 182, 0.2);
+    }
+
+    .hero-card button {
+      background: linear-gradient(120deg, #0f2f57, #1b4c8a);
+      color: var(--white);
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 18px rgba(16, 45, 80, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(16, 45, 80, 0.4);
+    }
+
+    .hero-card button:active {
+      transform: translateY(0);
+    }
+
+    /* Ripple Effect */
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ripple::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .ripple:active::after {
+      width: 300px;
+      height: 300px;
+    }
+
+    /* Wave Divider */
+    .wave-divider {
+      position: absolute;
+      left: 0;
+      right: 0;
+      line-height: 0;
+    }
+
+    .wave-divider.top {
+      top: -1px;
+    }
+
+    .wave-divider.bottom {
+      bottom: -1px;
+      transform: rotate(180deg);
+    }
+
+    .wave-divider svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Scroll Animations */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    }
+
+    .scroll-animate.animated {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-animate-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    }
+
+    .scroll-animate-left.animated {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .scroll-animate-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    }
+
+    .scroll-animate-right.animated {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .scroll-animate-scale {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    }
+
+    .scroll-animate-scale.animated {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Stagger children */
+    .stagger-children > * {
+      transition-delay: calc(var(--index) * 0.1s);
+    }
+
+    /* How It Works Section */
+    .how-it-works {
+      padding: 80px 0;
+      background: linear-gradient(180deg, var(--cream) 0%, #fffdf8 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .how-it-works::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--yellow-400), transparent);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      color: var(--text-mid);
+      font-size: 16px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .steps-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      position: relative;
+    }
+
+    .steps-container::before {
+      content: "";
+      position: absolute;
+      top: 60px;
+      left: 15%;
+      right: 15%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--yellow-300), var(--yellow-500), var(--yellow-300));
+      border-radius: 2px;
+      z-index: 0;
+    }
+
+    .step {
+      position: relative;
+      text-align: center;
+      flex: 1;
+      max-width: 280px;
+      z-index: 1;
+    }
+
+    .step-number {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--yellow-400), var(--yellow-500));
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+      position: relative;
+      transition: all var(--transition-normal);
+    }
+
+    .step:hover .step-number {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-xl), var(--shadow-glow);
+    }
+
+    .step-number svg {
+      width: 50px;
+      height: 50px;
+      fill: var(--blue-900);
+    }
+
+    .step-number::after {
+      content: attr(data-step);
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--blue-900);
+      color: var(--yellow-400);
+      font-weight: 700;
+      font-size: 16px;
+      display: grid;
+      place-items: center;
+      border: 3px solid var(--white);
+    }
+
+    .step h4 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .step p {
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* Impact Section */
+    .impact {
+      position: relative;
+      padding: 36px 0 60px;
+      background: linear-gradient(180deg, #f3e4ac 0%, #fff6d8 18%, #fffdf5 55%, #ffffff 100%);
+    }
+
+    .impact .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: 0.6fr 1.4fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .impact-illustration {
+      display: grid;
+      place-items: center;
+    }
+
+    .impact-illustration .board {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 26px;
+      padding: 16px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(26, 42, 68, 0.08);
+      transition: transform var(--transition-slow);
+    }
+
+    .impact-illustration:hover .board {
+      transform: rotate(-2deg) scale(1.02);
+    }
+
+    .impact-illustration svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .impact-content h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .impact-content p {
+      margin-top: 10px;
+      color: var(--text-mid);
+      font-size: 14px;
+      max-width: 520px;
+    }
+
+    .impact-stats {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .stat {
+      background: #fffdf6;
+      border-radius: 18px;
+      padding: 16px 12px;
+      text-align: center;
+      border: 1px dashed rgba(26, 42, 68, 0.15);
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-normal);
+    }
+
+    .stat:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .stat .bubble {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--yellow-400), var(--yellow-500));
+      margin: 0 auto 10px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: var(--blue-900);
+      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.45);
+      font-size: 14px;
+    }
+
+    .stat h4 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .stat span {
+      font-size: 12px;
+      color: var(--text-mid);
+    }
+
+    .stat .counter {
+      display: block;
+    }
+
+    /* Benefits Section */
+    .benefits {
+      padding: 80px 0;
+      background: linear-gradient(180deg, #ffffff 0%, #fffaf0 65%, #fff3cf 100%);
+    }
+
+    .benefits h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .benefit-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 32px 24px;
+      text-align: center;
+      border: 1px solid rgba(26, 42, 68, 0.08);
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-normal);
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+
+    .benefit-card:hover {
+      box-shadow: var(--shadow-xl);
+    }
+
+    .benefit-card .icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--yellow-400), var(--yellow-500));
+      display: grid;
+      place-items: center;
+      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.5);
+      transition: transform var(--transition-normal);
+    }
+
+    .benefit-card:hover .icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .benefit-card .icon svg {
+      width: 36px;
+      height: 36px;
+      fill: var(--blue-900);
+    }
+
+    .benefit-card h4 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-dark);
+    }
+
+    .benefit-card p {
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+      padding: 80px 0;
+      background: linear-gradient(180deg, #fff3cf 0%, #ffe8a1 50%, #fff3cf 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonials::before,
+    .testimonials::after {
+      content: '"';
+      position: absolute;
+      font-size: 300px;
+      font-family: Georgia, serif;
+      color: rgba(246, 200, 69, 0.15);
+      line-height: 1;
+      z-index: 0;
+    }
+
+    .testimonials::before {
+      top: -50px;
+      left: 20px;
+    }
+
+    .testimonials::after {
+      bottom: -100px;
+      right: 20px;
+    }
+
+    .testimonials .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonials h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    .testimonial-carousel {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .testimonial-track {
+      display: flex;
+      transition: transform 0.5s var(--ease-out);
+    }
+
+    .testimonial-slide {
+      flex: 0 0 100%;
+      padding: 0 10px;
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+    }
+
+    .testimonial-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      border: 4px solid var(--yellow-500);
+      box-shadow: var(--shadow-md);
+    }
+
+    .testimonial-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testimonial-text {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text-dark);
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-author {
+      font-weight: 700;
+      color: var(--blue-900);
+      font-size: 16px;
+    }
+
+    .testimonial-role {
+      font-size: 14px;
+      color: var(--text-mid);
+    }
+
+    .carousel-nav {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .carousel-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--yellow-500);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all var(--transition-normal);
+    }
+
+    .carousel-btn:hover {
+      background: var(--yellow-500);
+      transform: scale(1.1);
+    }
+
+    .carousel-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--blue-900);
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(26, 42, 68, 0.2);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+    }
+
+    .carousel-dot.active {
+      background: var(--yellow-500);
+      transform: scale(1.3);
+    }
+
+    /* FAQ Section */
+    .faq {
+      padding: 80px 0;
+      background: linear-gradient(180deg, #ffffff 0%, #f7f8fb 100%);
+    }
+
+    .faq h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    .faq-list {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      margin-bottom: 16px;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 20px 24px;
+      background: var(--white);
+      border: 1px solid rgba(26, 42, 68, 0.1);
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-align: left;
+      transition: all var(--transition-normal);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-question:hover {
+      border-color: var(--yellow-500);
+      box-shadow: var(--shadow-md);
+    }
+
+    .faq-question.active {
+      background: linear-gradient(135deg, var(--yellow-400), var(--yellow-500));
+      color: var(--blue-900);
+      border-color: var(--yellow-500);
+    }
+
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      transition: transform var(--transition-normal);
+    }
+
+    .faq-question.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease-out), padding 0.4s var(--ease-out);
+    }
+
+    .faq-answer.open {
+      max-height: 300px;
+      padding: 20px 24px;
+    }
+
+    .faq-answer p {
+      color: var(--text-mid);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* CTA Banner */
+    .cta-banner {
+      position: relative;
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-800) 100%);
+      color: var(--white);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+
+    .cta-banner .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-banner h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .cta-banner p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 32px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 16px 40px;
+      background: var(--yellow-500);
+      color: var(--blue-900);
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all var(--transition-normal);
+      box-shadow: 0 10px 30px rgba(246, 200, 69, 0.4);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(246, 200, 69, 0.5);
+    }
+
+    /* Business Section */
+    .business {
+      background: linear-gradient(180deg, #fff2c4 0%, #fff7dc 40%, #f3f7ff 100%);
+      padding: 80px 0 80px;
+    }
+
+    .business-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .business h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .business p {
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .business-btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--blue-700);
+      color: var(--white);
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-normal);
+    }
+
+    .business-btn:hover {
+      background: var(--blue-800);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+
+    /* Footer */
+    footer {
+      background: var(--blue-900);
+      color: rgba(255, 255, 255, 0.8);
+      padding: 60px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand .brand {
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-heading {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: var(--white);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color var(--transition-fast);
+    }
+
+    .footer-links a:hover {
+      color: var(--yellow-400);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: grid;
+      place-items: center;
+      transition: all var(--transition-normal);
+    }
+
+    .social-link:hover {
+      background: var(--yellow-500);
+      transform: translateY(-4px);
+    }
+
+    .social-link svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--white);
+    }
+
+    .social-link:hover svg {
+      fill: var(--blue-900);
+    }
+
+    .footer-bottom {
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .footer-bottom a {
+      color: var(--yellow-400);
+      text-decoration: none;
+    }
+
+    /* Section Headings */
+    section h2 {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    section h2::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 48px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--yellow-500), var(--yellow-300));
+    }
+
+    /* Glass Card Effect */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+    }
+
+    /* Gradient Border Animation */
+    .gradient-border {
+      position: relative;
+      background: var(--white);
+      border-radius: 20px;
+    }
+
+    .gradient-border::before {
+      content: "";
+      position: absolute;
+      inset: -3px;
+      border-radius: 22px;
+      background: linear-gradient(90deg, var(--yellow-500), var(--blue-700), var(--yellow-500));
+      background-size: 200% 100%;
+      animation: border-flow 3s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes border-flow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100vh;
+      background: var(--white);
+      z-index: 999;
+      transition: right 0.4s var(--ease-out);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+      padding: 80px 30px 30px;
+    }
+
+    .mobile-menu.open {
+      right: 0;
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .mobile-menu-link {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .steps-container {
+        flex-direction: column;
+        gap: 60px;
+      }
+
+      .steps-container::before {
+        width: 4px;
+        height: calc(100% - 120px);
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .impact-grid,
+      .business-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        margin-top: 24px;
+      }
+
+      .hero-card {
+        position: static;
+        margin-top: 18px;
+      }
+
+      .impact-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .benefit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-brand p {
+        margin: 0 auto;
+      }
+
+      .social-links {
+        justify-content: center;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .custom-cursor, .cursor-trail {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding-top: 120px;
+        padding-bottom: 80px;
+      }
+
+      .impact-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-photo {
+        height: 320px;
+      }
+
+      .section-header h2 {
+        font-size: 28px;
+      }
+
+      .cta-banner h2 {
+        font-size: 28px;
+      }
+
+      .testimonial-card {
+        padding: 30px 20px;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      .navbar,
+      .cta-banner,
+      footer,
+      .custom-cursor,
+      .cursor-trail,
+      .page-loader {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Animation -->
+  <div class="page-loader">
+    <div class="loader-content">
+      <div class="loader-logo">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3c2.2 0 4 1.5 4 3.5S14.2 10 12 10 8 8.5 8 6.5 9.8 3 12 3zm0 8.5c3.2 0 5.8 2.3 6 5.2l-2.3-.7c-.7-.2-1.4.3-1.5 1l-.4 2.5h-3.6l-.4-2.5c-.1-.7-.8-1.2-1.5-1l-2.3.7c.2-2.9 2.8-5.2 6-5.2z" />
+        </svg>
+      </div>
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+
+  <!-- Floating Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <div class="nav-brand-mark">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3c2.2 0 4 1.5 4 3.5S14.2 10 12 10 8 8.5 8 6.5 9.8 3 12 3zm0 8.5c3.2 0 5.8 2.3 6 5.2l-2.3-.7c-.7-.2-1.4.3-1.5 1l-.4 2.5h-3.6l-.4-2.5c-.1-.7-.8-1.2-1.5-1l-2.3.7c.2-2.9 2.8-5.2 6-5.2z" />
+          </svg>
+        </div>
+        rapido
+      </div>
+      <div class="nav-links">
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#benefits" class="nav-link">Benefits</a>
+        <a href="#testimonials" class="nav-link">Testimonials</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#contact" class="nav-cta ripple">Join Now</a>
+      </div>
+      <button class="mobile-menu-btn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu-overlay"></div>
+  <div class="mobile-menu">
+    <div class="mobile-menu-links">
+      <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
+      <a href="#benefits" class="mobile-menu-link">Benefits</a>
+      <a href="#testimonials" class="mobile-menu-link">Testimonials</a>
+      <a href="#faq" class="mobile-menu-link">FAQ</a>
+      <a href="#contact" class="mobile-menu-link">Join Now</a>
+    </div>
+  </div>
+
+  <div class="page">
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+      <div class="hero-gradient"></div>
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <canvas class="particles" id="particles"></canvas>
+
+      <div class="container hero-grid">
+        <div class="scroll-animate">
+          <h1>Bike Ride<br />Sharing Services</h1>
+          <p>Join Rapido and earn up to ₹30,000 / month as a partner captain. Flexible hours, instant payouts, and a supportive community.</p>
+          <div class="hero-badges">
+            <div class="badge">
+              <svg viewBox="0 0 24 24"><path d="M12 2l7 4v12l-7 4-7-4V6l7-4zm0 4.2L7 8v8l5 2.8L17 16V8l-5-1.8z"/></svg>
+              RC Valid
+            </div>
+            <div class="badge">
+              <svg viewBox="0 0 24 24"><path d="M12 3a7 7 0 00-7 7v3l2 5h10l2-5v-3a7 7 0 00-7-7zm0 2a5 5 0 015 5v2H7v-2a5 5 0 015-5z"/></svg>
+              Helmet
+            </div>
+            <div class="badge">
+              <svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 018 8v4a6 6 0 01-6 6H8l-4-4v-6a8 8 0 018-8zm-4 9h2v2H8v-2zm6 0h2v2h-2v-2z"/></svg>
+              Smartphone
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual scroll-animate-right">
+          <img class="hero-photo" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80" alt="Rapido captain with passenger" />
+          <div class="hero-card">
+            <h3>Start Earning Today</h3>
+            <input type="text" placeholder="Your Name" aria-label="Name" />
+            <input type="tel" placeholder="Phone Number" aria-label="Phone" />
+            <input type="text" placeholder="Your City" aria-label="City" />
+            <button type="button" class="ripple">Submit Application</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="container">
+        <div class="section-header scroll-animate">
+          <h2>How It Works</h2>
+          <p>Start your journey as a Rapido captain in just 3 simple steps</p>
+        </div>
+        <div class="steps-container stagger-children">
+          <div class="step scroll-animate-scale" style="--index: 0">
+            <div class="step-number" data-step="1">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+            <h4>Sign Up</h4>
+            <p>Register with your basic details, documents, and bank account information through our app or website.</p>
+          </div>
+          <div class="step scroll-animate-scale" style="--index: 1">
+            <div class="step-number" data-step="2">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <h4>Get Verified</h4>
+            <p>Our team verifies your documents within 24-48 hours. You'll receive a confirmation once approved.</p>
+          </div>
+          <div class="step scroll-animate-scale" style="--index: 2">
+            <div class="step-number" data-step="3">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.41 16.09V7.91h5.82v2.73h-2.73v2.72h2.73v2.73h-2.73v2.72h-2.73v-4.36z"/></svg>
+            </div>
+            <h4>Start Earning</h4>
+            <p>Go online, accept ride requests, and start earning. Withdraw your earnings anytime, anywhere!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact">
+      <div class="wave-divider top">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#fff6d9"></path>
+        </svg>
+      </div>
+      <div class="container impact-grid">
+        <div class="impact-illustration scroll-animate-left">
+          <div class="board" aria-hidden="true">
+            <svg viewBox="0 0 320 220" role="img" aria-label="Partner captain illustration">
+              <defs>
+                <linearGradient id="scooter" x1="0" x2="1">
+                  <stop offset="0" stop-color="#ffd55d" />
+                  <stop offset="1" stop-color="#f6c845" />
+                </linearGradient>
+                <linearGradient id="jacket" x1="0" x2="1">
+                  <stop offset="0" stop-color="#143a6b" />
+                  <stop offset="1" stop-color="#2a65b6" />
+                </linearGradient>
+              </defs>
+              <rect x="6" y="12" width="308" height="196" rx="22" fill="#fff8e1" />
+              <circle cx="78" cy="150" r="26" fill="#1a2a44" />
+              <circle cx="78" cy="150" r="14" fill="#f6c845" />
+              <circle cx="180" cy="150" r="26" fill="#1a2a44" />
+              <circle cx="180" cy="150" r="14" fill="#f6c845" />
+              <rect x="70" y="140" width="130" height="16" rx="8" fill="url(#scooter)" />
+              <rect x="110" y="116" width="70" height="28" rx="14" fill="url(#scooter)" />
+              <rect x="150" y="92" width="46" height="12" rx="6" fill="#1a2a44" />
+              <rect x="210" y="112" width="44" height="12" rx="6" fill="#1a2a44" />
+              <circle cx="122" cy="86" r="18" fill="#ffd9b0" />
+              <rect x="106" y="100" width="38" height="42" rx="16" fill="url(#jacket)" />
+              <rect x="96" y="128" width="30" height="10" rx="5" fill="#1a2a44" />
+              <rect x="144" y="120" width="24" height="10" rx="5" fill="#1a2a44" />
+              <circle cx="122" cy="82" r="16" fill="#f6c845" stroke="#1a2a44" stroke-width="4" />
+              <circle cx="230" cy="86" r="18" fill="#ffd9b0" />
+              <rect x="218" y="104" width="36" height="54" rx="10" fill="#f0b83a" />
+              <rect x="244" y="118" width="24" height="10" rx="5" fill="#1a2a44" />
+              <rect x="226" y="158" width="30" height="10" rx="5" fill="#1a2a44" />
+              <rect x="238" y="166" width="36" height="28" rx="4" fill="#8f5a2a" />
+              <rect x="242" y="172" width="28" height="6" rx="3" fill="#c78b4a" />
+            </svg>
+          </div>
+        </div>
+        <div class="impact-content scroll-animate-right">
+          <h2>Our Impact</h2>
+          <p>Our partners are the backbone of our success. Join a community built on safety, trust, and steady earnings.</p>
+          <div class="impact-stats stagger-children">
+            <div class="stat" style="--index: 0">
+              <div class="bubble"><span class="counter" data-target="25">12</span>M+</div>
+              <h4>Downloads</h4>
+              <span>Across cities</span>
+            </div>
+            <div class="stat" style="--index: 1">
+              <div class="bubble"><span class="counter" data-target="100">87</span>+</div>
+              <h4>Cities</h4>
+              <span>And growing</span>
+            </div>
+            <div class="stat" style="--index: 2">
+              <div class="bubble"><span class="counter" data-target="1000">500</span>K+</div>
+              <h4>Captains</h4>
+              <span>Partner network</span>
+            </div>
+            <div class="stat" style="--index: 3">
+              <div class="bubble"><span class="counter" data-target="10000">4567</span>K+</div>
+              <h4>Customers</h4>
+              <span>Regular riders</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+      <div class="container">
+        <h2 class="scroll-animate">What's in it for you</h2>
+        <div class="benefit-grid stagger-children">
+          <div class="benefit-card scroll-animate" style="--index: 0">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7v3a2 2 0 01-2 2h-1v2a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2H7a2 2 0 01-2-2v-3a7 7 0 017-7zm0 2a5 5 0 00-5 5v3h10v-3a5 5 0 00-5-5z"/></svg>
+            </div>
+            <h4>Zero Pressure Rides</h4>
+            <p>Work when you want with no minimum ride requirements and complete flexibility. You're your own boss.</p>
+          </div>
+          <div class="benefit-card scroll-animate" style="--index: 1">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2zm0 2v12h12V4H6zm6 14a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"/></svg>
+            </div>
+            <h4>Instant Payouts</h4>
+            <p>Withdraw your daily earnings easily to your bank account with transparent payouts. No hidden fees.</p>
+          </div>
+          <div class="benefit-card scroll-animate" style="--index: 2">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2l7 4v6c0 5-3.5 8.7-7 10-3.5-1.3-7-5-7-10V6l7-4zm0 3.2L7 7v5.1c0 3.5 2.4 6.3 5 7.5 2.6-1.2 5-4 5-7.5V7l-5-1.8z"/></svg>
+            </div>
+            <h4>Insured Rides</h4>
+            <p>Safety first with every trip covered by ride insurance for you and the customer. Ride with peace of mind.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+      <div class="container">
+        <h2 class="scroll-animate">What Our Captains Say</h2>
+        <div class="testimonial-carousel scroll-animate">
+          <div class="testimonial-track" id="testimonialTrack">
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Rajesh Kumar">
+                </div>
+                <p class="testimonial-text">"Joining Rapido was the best decision I made. I earn more than my previous job and have the freedom to spend time with my family."</p>
+                <div class="testimonial-author">Rajesh Kumar</div>
+                <div class="testimonial-role">Captain since 2021</div>
+              </div>
+            </div>
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="Priya Sharma">
+                </div>
+                <p class="testimonial-text">"As a woman rider, Rapido has given me financial independence. The safety features and support team are excellent."</p>
+                <div class="testimonial-author">Priya Sharma</div>
+                <div class="testimonial-role">Captain since 2022</div>
+              </div>
+            </div>
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" alt="Amit Patel">
+                </div>
+                <p class="testimonial-text">"The instant payout feature is a game-changer. I can withdraw my earnings whenever I need cash. Highly recommend!"</p>
+                <div class="testimonial-author">Amit Patel</div>
+                <div class="testimonial-role">Captain since 2020</div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-nav">
+            <button class="carousel-btn" id="prevBtn" aria-label="Previous testimonial">
+              <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+            <button class="carousel-btn" id="nextBtn" aria-label="Next testimonial">
+              <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </button>
+          </div>
+          <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+      <div class="container">
+        <h2 class="scroll-animate">Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div class="faq-item scroll-animate" style="--index: 0">
+            <button class="faq-question">
+              <span>What documents do I need to register?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>You need a valid Driving License (DL), RC (Registration Certificate) of your vehicle, Aadhaar card for identity verification, and a cancelled cheque or bank passbook for payout details.</p>
+            </div>
+          </div>
+          <div class="faq-item scroll-animate" style="--index: 1">
+            <button class="faq-question">
+              <span>How do I receive my payments?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Earnings are credited directly to your registered bank account. You can request a withdrawal anytime, and the amount will be transferred within 24-48 hours. Instant payout is also available for a small fee.</p>
+            </div>
+          </div>
+          <div class="faq-item scroll-animate" style="--index: 2">
+            <button class="faq-question">
+              <span>Can I work part-time with Rapido?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Absolutely! Rapido offers complete flexibility. You can choose your own working hours - whether it's a few hours a day or full-time. There are no minimum ride requirements.</p>
+            </div>
+          </div>
+          <div class="faq-item scroll-animate" style="--index: 3">
+            <button class="faq-question">
+              <span>What type of vehicle can I use?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>You can use any two-wheeler - bike or scooter - with a valid engine capacity (usually 100cc or above). The vehicle should be in good condition and not more than 10-12 years old.</p>
+            </div>
+          </div>
+          <div class="faq-item scroll-animate" style="--index: 4">
+            <button class="faq-question">
+              <span>Is insurance provided for captains?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! Rapido provides accident insurance coverage for all active captains during ride hours. This includes personal accident cover and third-party liability coverage.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner" id="contact">
+      <div class="container scroll-animate">
+        <h2>Ready to Start Your Journey?</h2>
+        <p>Join thousands of captains who are already earning with Rapido. Sign up today and get your first bonus ride!</p>
+        <a href="#home" class="cta-btn ripple">Become a Captain Now</a>
+      </div>
+    </section>
+
+    <!-- Business Section -->
+    <section class="business">
+      <div class="container business-grid">
+        <div class="scroll-animate-left">
+          <h2>Rapido Business Solutions</h2>
+          <p>Partner with us for enterprise mobility, employee commuting, and last-mile connectivity. We provide reliable, affordable transportation to keep teams moving efficiently.</p>
+          <p>Our corporate partners enjoy priority booking, dedicated fleet management, and detailed analytics for their transportation needs.</p>
+          <a href="#" class="business-btn">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="brand">
+              <div class="brand-mark">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 3c2.2 0 4 1.5 4 3.5S14.2 10 12 10 8 8.5 8 6.5 9.8 3 12 3zm0 8.5c3.2 0 5.8 2.3 6 5.2l-2.3-.7c-.7-.2-1.4.3-1.5 1l-.4 2.5h-3.6l-.4-2.5c-.1-.7-.8-1.2-1.5-1l-2.3.7c.2-2.9 2.8-5.2 6-5.2z" />
+                </svg>
+              </div>
+              rapido
+            </div>
+            <p>India's largest bike taxi platform, empowering millions of captains to earn while providing affordable last-mile connectivity.</p>
+          </div>
+          <div>
+            <h4 class="footer-heading">Company</h4>
+            <ul class="footer-links">
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Press</a></li>
+              <li><a href="#">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-heading">Partner</h4>
+            <ul class="footer-links">
+              <li><a href="#">Become a Captain</a></li>
+              <li><a href="#">Business Solutions</a></li>
+              <li><a href="#">Referral Program</a></li>
+              <li><a href="#">Support</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-heading">Connect</h4>
+            <div class="social-links">
+              <a href="#" class="social-link" aria-label="Facebook">
+                <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+              </a>
+              <a href="#" class="social-link" aria-label="Twitter">
+                <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+              </a>
+              <a href="#" class="social-link" aria-label="Instagram">
+                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </a>
+              <a href="#" class="social-link" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2024 Rapido. All rights reserved.</span>
+          <div>
+            <a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Wait for DOM
+    document.addEventListener('DOMContentLoaded', function() {
+      // Page Loader
+      setTimeout(function() {
+        document.querySelector('.page-loader').classList.add('hidden');
+        document.querySelector('.page').classList.add('loaded');
+      }, 1500);
+
+      // Custom Cursor
+      const cursor = document.querySelector('.custom-cursor');
+      const trails = [];
+      const trailCount = 8;
+
+      for (let i = 0; i < trailCount; i++) {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        document.body.appendChild(trail);
+        trails.push({ el: trail, x: 0, y: 0 });
+      }
+
+      let mouseX = 0, mouseY = 0;
+      let cursorX = 0, cursorY = 0;
+
+      document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      // Add hover effect to interactive elements
+      const interactiveElements = document.querySelectorAll('a, button, .faq-question, .carousel-btn, .benefit-card');
+      interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+
+      function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+        cursor.style.left = cursorX - 10 + 'px';
+        cursor.style.top = cursorY - 10 + 'px';
+
+        let prevX = cursorX, prevY = cursorY;
+        trails.forEach((trail, i) => {
+          const x = prevX + (mouseX - prevX) * (0.3 - i * 0.03);
+          const y = prevY + (mouseY - prevY) * (0.3 - i * 0.03);
+          trail.el.style.left = x - 4 + 'px';
+          trail.el.style.top = y - 4 + 'px';
+          trail.el.style.opacity = (1 - i / trailCount) * 0.5;
+          prevX = x;
+          prevY = y;
+        });
+
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+
+      // Navbar scroll effect
+      const navbar = document.querySelector('.navbar');
+      let lastScroll = 0;
+
+      window.addEventListener('scroll', debounce(function() {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 100) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+        lastScroll = currentScroll;
+      }, 10));
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Close mobile menu if open
+            closeMobileMenu();
+          }
+        });
+      });
+
+      // Mobile menu toggle
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+
+      mobileMenuBtn.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileMenu.classList.toggle('open');
+        mobileMenuOverlay.classList.toggle('open');
+        document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+      });
+
+      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+      function closeMobileMenu() {
+        mobileMenuBtn.classList.remove('active');
+        mobileMenu.classList.remove('open');
+        mobileMenuOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      // Scroll animations with Intersection Observer
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+            // Counter animation - find counter inside the observed element
+            const counter = entry.target.querySelector('.counter');
+            if (counter) {
+              animateCounter(counter);
+            }
+          }
+        });
+      }, observerOptions);
+
+      // Observe all scroll-animate elements
+      document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Counter animation
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        const parent = counter.closest('.stat');
+        if (parent) observer.observe(parent);
+      });
+
+      function animateCounter(el) {
+        const target = parseInt(el.dataset.target);
+        const startValue = parseInt(el.textContent) || 0;
+        const difference = target - startValue;
+
+        // Dynamic duration based on the number difference
+        // Smaller numbers need slower animation per increment
+        // Larger numbers get more time for the full animation
+        let duration;
+        if (difference < 50) {
+          duration = 5000; // 5 seconds for small changes
+        } else if (difference < 500) {
+          duration = 6000; // 6 seconds for medium changes
+        } else if (difference < 5000) {
+          duration = 7000; // 7 seconds for large changes
+        } else {
+          duration = 8000; // 8 seconds for very large changes
+        }
+
+        const startTime = performance.now();
+
+        function update(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeProgress = 1 - Math.pow(1 - progress, 3);
+          const current = Math.floor(startValue + (target - startValue) * easeProgress);
+          el.textContent = current;
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            el.textContent = target;
+          }
+        }
+
+        requestAnimationFrame(update);
+      }
+
+      // Testimonial Carousel
+      const track = document.getElementById('testimonialTrack');
+      const slides = document.querySelectorAll('.testimonial-slide');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const dotsContainer = document.getElementById('carouselDots');
+
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+
+      // Create dots
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+
+      const dots = document.querySelectorAll('.carousel-dot');
+
+      function goToSlide(index) {
+        currentSlide = index;
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentSlide);
+        });
+      }
+
+      prevBtn.addEventListener('click', () => {
+        goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+      });
+
+      nextBtn.addEventListener('click', () => {
+        goToSlide((currentSlide + 1) % totalSlides);
+      });
+
+      // Auto-scroll carousel
+      setInterval(() => {
+        goToSlide((currentSlide + 1) % totalSlides);
+      }, 5000);
+
+      // FAQ Accordion
+      const faqQuestions = document.querySelectorAll('.faq-question');
+
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+          const isActive = this.classList.contains('active');
+          const answer = this.nextElementSibling;
+
+          // Close all FAQs
+          faqQuestions.forEach(q => {
+            q.classList.remove('active');
+            q.nextElementSibling.classList.remove('open');
+          });
+
+          // Open clicked one if it wasn't active
+          if (!isActive) {
+            this.classList.add('active');
+            answer.classList.add('open');
+          }
+        });
+      });
+
+      // 3D Card Tilt Effect
+      const benefitCards = document.querySelectorAll('.benefit-card');
+
+      benefitCards.forEach(card => {
+        card.addEventListener('mousemove', function(e) {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = (y - centerY) / 10;
+          const rotateY = (centerX - x) / 10;
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', function() {
+          card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        });
+      });
+
+      // Particle Animation
+      const canvas = document.getElementById('particles');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+
+      function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+
+        reset() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 3 + 1;
+          this.speedX = (Math.random() - 0.5) * 0.5;
+          this.speedY = (Math.random() - 0.5) * 0.5;
+          this.opacity = Math.random() * 0.5 + 0.2;
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+
+          if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+          if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 213, 93, ${this.opacity})`;
+          ctx.fill();
+        }
+      }
+
+      // Create particles
+      for (let i = 0; i < 50; i++) {
+        particles.push(new Particle());
+      }
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animateParticles);
+      }
+
+      animateParticles();
+
+      // Parallax effect on scroll
+      window.addEventListener('scroll', debounce(function() {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.hero-visual, .impact-illustration');
+
+        parallaxElements.forEach(el => {
+          const speed = 0.15;
+          el.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+      }, 10));
+
+      // Utility: Debounce function
+      function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
+      }
+
+      // Keyboard navigation for accessibility
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeMobileMenu();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
